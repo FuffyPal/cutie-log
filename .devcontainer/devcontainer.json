@@ -1,0 +1,23 @@
+{
+    "name": "Cutie-Log Development",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "golang.Go",
+                "ms-vscode.cpptools"
+            ]
+        }
+    },
+    "runArgs": [
+        "--pid=host",
+        "--privileged"
+    ],
+    "remoteUser": "root",
+    "containerEnv": {
+        "LANG": "tr_TR.UTF-8"
+    }
+}
