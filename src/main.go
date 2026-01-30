@@ -8,9 +8,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/fuffypal/cutie-log/internal/i18n"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/shirou/gopsutil/v3/process"
+	"gitlab.com/fluffypal/cutie-log/internal/i18n"
 )
 
 var db *sql.DB
