@@ -14,9 +14,14 @@ test-windows-execution:
   stage: test
   image: ubuntu:22.04
   script:
-    - apt-get update && apt-get install -y wine xvfb golang-go git
+    - export DEBIAN_FRONTEND=noninteractive
+    - dpkg --add-architecture i386
+    - apt-get update
+    - apt-get install -y wine wine32 wine64 xvfb golang-go git
     - CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -buildvcs=false -o test-cutie.exe ./src
-    - xvfb-run -a wine test-cutie.exe & sleep 15 && kill $! || true
+    - export WINEDEBUG=-all
+    - xvfb-run -a wine test-cutie.exe & sleep 20 && kill $! || true
+    - ls -l 
     - if [ -f "cutie-log.db" ]; then echo "✅ SQLite Dosyası Yaratıldı!"; else echo "❌ DB Hatası!"; exit 1; fi
 build-linux:
   stage: build
