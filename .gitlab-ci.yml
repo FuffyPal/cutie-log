@@ -3,6 +3,12 @@ image: golang:1.21
 stages:
   - test   
   - build  
+variables:
+  GOPATH: $CI_PROJECT_DIR/.go
+  GOCACHE: $CI_PROJECT_DIR/.cache/go-build
+
+default:
+  interruptible: true
 
 run-tests:
   stage: test
