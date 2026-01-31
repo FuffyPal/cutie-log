@@ -26,11 +26,11 @@
 1.  **Build for your OS:**
     ```bash
         go build -o cutie-log ./src
-            ```
+    ```
             2.  **Run it:**
                 ```bash
                     ./cutie-log
-                        ```
+                ```
 
                         ---
 
@@ -48,11 +48,11 @@
                         1.  **Kendi sistemin için derle:**
                             ```bash
                                 go build -o cutie-log ./src
-                                    ```
+                            ```
                                     2.  **Çalıştır:**
                                         ```bash
                                             ./cutie-log
-                                                ```
+                                        ```
 
                                                 ---
 
