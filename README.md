@@ -27,34 +27,36 @@
     ```bash
         go build -o cutie-log ./src
     ```
-            2.  **Run it:**
-                ```bash
-                    ./cutie-log
-                ```
+2.  **Run it:**
+        ```bash
+            ./cutie-log
+         ```
 
-                        ---
+---
 
-                        ## 🇹🇷 Türkçe
+## 🇹🇷 Türkçe
+**Cutie-Log**, sistem kaynaklarını izleyen ama bunu yaparken yormayan, minnoş ama disiplinli bir performans takip aracıdır. CPU yükünü takip eder ve tüm verileri "saf Go" (CGO-free) SQLite veritabanına titizlikle kaydeder.
 
-                        **Cutie-Log**, sistem kaynaklarını izleyen ama bunu yaparken yormayan, minnoş ama disiplinli bir performans takip aracıdır. CPU yükünü takip eder ve tüm verileri "saf Go" (CGO-free) SQLite veritabanına titizlikle kaydeder.
+### ✨ Özellikler
+* **Çift Motorlu Yapı:** Windows (NT API) ve Linux (`/proc`) için özel olarak optimize edilmiş veri toplayıcılar.
+                        
+* **Güvenli Kayıt:** `glebarez/go-sqlite` altyapısı sayesinde hiçbir C kütüphanesine ihtiyaç duymadan, her yerde çalışabilen taşınabilir yapı.
+                        
+* **Temiz Kod:** Modüler iç yapı sayesinde kolayca çeviri eklenebilir ve geliştirilebilir.
+                        
+* **GitLab CI/CD Entegre:** Her `push` yaptığında hem Linux hem Windows için otomatik olarak test edilir ve derlenir.
 
-                        ### ✨ Özellikler
-                        * **Çift Motorlu Yapı:** Windows (NT API) ve Linux (`/proc`) için özel olarak optimize edilmiş veri toplayıcılar.
-                        * **Güvenli Kayıt:** `glebarez/go-sqlite` altyapısı sayesinde hiçbir C kütüphanesine ihtiyaç duymadan, her yerde çalışabilen taşınabilir yapı.
-                        * **Temiz Kod:** Modüler iç yapı sayesinde kolayca çeviri eklenebilir ve geliştirilebilir.
-                        * **GitLab CI/CD Entegre:** Her `push` yaptığında hem Linux hem Windows için otomatik olarak test edilir ve derlenir.
-
-                        ### 🚀 Hızlı Başlangıç
-                        1.  **Kendi sistemin için derle:**
-                            ```bash
-                                go build -o cutie-log ./src
-                            ```
-                                    2.  **Çalıştır:**
+### 🚀 Hızlı Başlangıç
+1.  **Kendi sistemin için derle:**
+```bash
+go build -o cutie-log ./src
+```
+2.  **Çalıştır:**
                                         ```bash
                                             ./cutie-log
                                         ```
 
-                                                ---
+                                        ---
 
-                                                > _Developed with 🐾 by fluffypal_
+> _Developed with 🐾 by fluffypal_
                                                 
