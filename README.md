@@ -52,11 +52,11 @@
 go build -o cutie-log ./src
 ```
 2.  **Çalıştır:**
-                                        ```bash
-                                            ./cutie-log
-                                        ```
+```bash          
+/cutie-log
+```
 
-                                        ---
+---
 
 > _Developed with 🐾 by fluffypal_
                                                 
