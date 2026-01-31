@@ -1,0 +1,33 @@
+# --- Binaries (Derleme Çıktıları) ---
+# Kendi derlediğin çalıştırılabilir dosyalar
+cutie-log
+cutie-log-linux
+cutie-log-win.exe
+test-cutie.exe
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# --- Database (Veritabanı) ---
+# Veritabanı dosyaları kişisel veri içerir ve repoya atılmaz
+*.db
+*.db-journal
+
+# --- Go Dependencies & Cache ---
+# Vendor klasörü kullanıyorsan (genelde gerekmez)
+vendor/
+# Go test çıktıları
+*.test
+*.out
+
+# --- DevContainer & IDE ---
+# VS Code özel ayarları (kişiseldir, ekipte herkesin farklı olabilir)
+.vscode/
+# DevContainer cache
+.devcontainer/.venv
+
+# --- Operating System ---
+.DS_Store
+Thumbs.db
