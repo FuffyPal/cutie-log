@@ -14,14 +14,10 @@ test-windows-execution:
   stage: test
   image: ubuntu:22.04
   script:
-    - apt-get update && apt-get install -y wine xvfb golang-go
-    # 1. Windows için derle
-    - CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o test-cutie.exe ./src
-    # 2. Wine ile 15 saniye boyunca çalıştır (Veritabanı oluşması için yeterli süre)
+    - apt-get update && apt-get install -y wine xvfb golang-go git
+    - CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -buildvcs=false -o test-cutie.exe ./src
     - xvfb-run -a wine test-cutie.exe & sleep 15 && kill $! || true
-    # 3. KRİTİK TEST: .db dosyası oluştu mu kontrol et?
-    - if [ -f "cutie-log.db" ]; then echo "✅ BAŞARILI! Windows versiyonu SQLite dosyası oluşturabildi."; else echo "❌ HATA! Veritabanı dosyası bulunamadı."; exit 1; fi
-    
+    - if [ -f "cutie-log.db" ]; then echo "✅ SQLite Dosyası Yaratıldı!"; else echo "❌ DB Hatası!"; exit 1; fi
 build-linux:
   stage: build
   script:
