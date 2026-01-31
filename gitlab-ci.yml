@@ -1,0 +1,30 @@
+image: golang:1.21
+
+stages:
+  - test   
+  - build  
+
+run-tests:
+  stage: test
+  script:
+    - go fmt ./...      
+    - go vet ./...      
+    - go test -v ./...  
+
+build-linux:
+  stage: build
+  script:
+    - go mod tidy
+    - GOOS=linux GOARCH=amd64 go build -o cutie-log-linux ./src
+  artifacts:
+    paths:
+      - cutie-log-linux
+
+build-windows:
+  stage: build
+  script:
+    - go mod tidy
+    - CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o cutie-log-win.exe ./src
+  artifacts:
+    paths:
+      - cutie-log-win.exe

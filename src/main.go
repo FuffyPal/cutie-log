@@ -8,53 +8,47 @@ import (
 	"sort"
 	"time"
 
-	_ "github.com/mattn/go-sqlite3"
-	"github.com/shirou/gopsutil/v3/process"
+	_ "github.com/glebarez/go-sqlite"
 	"gitlab.com/fluffypal/cutie-log/internal/i18n"
 )
 
 var db *sql.DB
 
+type ProcessStat struct {
+	Name string
+	CPU  float64
+}
+
 func initDB() {
 	var err error
-	db, err = sql.Open("sqlite3", "./cutie-log.db")
+	// "sqlite" sürücüsü glebarez kütüphanesi içindir
+	db, err = sql.Open("sqlite", "./cutie-log.db")
 	if err != nil {
 		log.Fatal(err)
 	}
-	statement, _ := db.Prepare("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, timestamp TEXT, app_name TEXT, cpu_usage REAL)")
-	statement.Exec()
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS logs (id INTEGER PRIMARY KEY, timestamp TEXT, app_name TEXT, cpu_usage REAL)")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func collectAndSave() {
-	numCores := runtime.NumCPU()
 	ticker := time.NewTicker(10 * time.Second)
-
 	for range ticker.C {
-		processes, _ := process.Processes()
-		var currentStats []struct {
-			name string
-			cpu  float64
-		}
-
-		for _, p := range processes {
-			name, _ := p.Name()
-			cpu, _ := p.CPUPercent()
-			if cpu > 0 {
-				currentStats = append(currentStats, struct {
-					name string
-					cpu  float64
-				}{name, cpu / float64(numCores)})
-			}
+		// İşletim sistemine göre ilgili collector_*.go dosyasındaki fonksiyon çalışır
+		currentStats, err := getProcessStats()
+		if err != nil {
+			continue
 		}
 
 		sort.Slice(currentStats, func(i, j int) bool {
-			return currentStats[i].cpu > currentStats[j].cpu
+			return currentStats[i].CPU > currentStats[j].CPU
 		})
 
 		now := time.Now().Format("15:04:05")
 		for i := 0; i < 5 && i < len(currentStats); i++ {
-			statement, _ := db.Prepare("INSERT INTO logs (timestamp, app_name, cpu_usage) VALUES (?, ?, ?)")
-			statement.Exec(now, currentStats[i].name, currentStats[i].cpu)
+			db.Exec("INSERT INTO logs (timestamp, app_name, cpu_usage) VALUES (?, ?, ?)",
+				now, currentStats[i].Name, currentStats[i].CPU)
 		}
 	}
 }
